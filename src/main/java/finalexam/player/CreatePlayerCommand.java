@@ -15,5 +15,5 @@ public class CreatePlayerCommand {
 
     private LocalDate birthDate;
 
-    private PositionType positionType;
+    private PositionType position;
 }

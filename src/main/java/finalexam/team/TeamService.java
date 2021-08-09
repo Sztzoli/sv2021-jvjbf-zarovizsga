@@ -33,14 +33,14 @@ public class TeamService {
     @Transactional
     public TeamDTO addNewPlayerToTeam(Long id, CreatePlayerCommand command) {
         Team team = findById(id);
-        Player player = playerRepository.save(new Player(command.getName(), command.getBirthDate(), command.getPositionType()));
+        Player player = playerRepository.save(new Player(command.getName(), command.getBirthDate(), command.getPosition()));
         team.addNewPlayer(player);
         return mapper.map(team, TeamDTO.class);
     }
 
     @Transactional
     public TeamDTO transferCommand(Long id, UpdateWithExistingPlayerCommand command) {
-        Player player = playerRepository.getById(command.getId());
+        Player player = playerRepository.findById(command.getPlayerId()).orElseThrow(() -> new IllegalStateException("Wrong player Id"));
         Team team = findById(id);
         if (player.getTeam() == null && positionNumber(id, player.getPositionType()) < 2) {
             team.addNewPlayer(player);

@@ -22,7 +22,7 @@ public class PlayerService {
     }
 
     public PlayerDTO createPlayer(CreatePlayerCommand command) {
-        Player player = playerRepository.save(new Player(command.getName(), command.getBirthDate(), command.getPositionType()));
+        Player player = playerRepository.save(new Player(command.getName(), command.getBirthDate(), command.getPosition()));
         return mapper.map(player, PlayerDTO.class);
     }
 
